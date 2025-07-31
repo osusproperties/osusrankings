@@ -1,11 +1,12 @@
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { LineChart, Line, XAxis, YAxis, ResponsiveContainer, Tooltip, Area, AreaChart } from 'recharts';
+import { Progress } from '@/components/ui/progress';
 
 interface Agent {
   name: string;
   conversionRate: number;
   totalLeads: number;
   customers: number;
+  revenue: number;
   engagementRate: number;
   quality: number;
   sourceCount: number;
@@ -16,62 +17,76 @@ interface EfficiencyChartProps {
 }
 
 export function EfficiencyChart({ agents }: EfficiencyChartProps) {
-  const topEfficient = [...agents]
-    .filter(a => a.totalLeads >= 5) // Only agents with significant volume
-    .sort((a, b) => (b.customers / b.totalLeads) - (a.customers / a.totalLeads))
-    .slice(0, 6)
-    .map(agent => ({
-      name: agent.name.split(' ')[0],
-      efficiency: (agent.quality + agent.conversionRate) / 2
-    }));
+  // Calculate efficiency score based on multiple factors
+  const agentsWithEfficiency = agents.map(agent => ({
+    ...agent,
+    efficiency: (agent.conversionRate * 0.4) + (agent.engagementRate * 0.3) + (agent.quality * 0.3)
+  }));
+
+  const sortedAgents = agentsWithEfficiency.sort((a, b) => b.efficiency - a.efficiency);
+
+  const getEfficiencyLabel = (efficiency: number) => {
+    if (efficiency >= 85) return "Exceptional";
+    if (efficiency >= 70) return "High";
+    if (efficiency >= 55) return "Moderate";
+    return "Developing";
+  };
+
+  const formatRevenue = (revenue: number) => {
+    if (revenue >= 1000000) {
+      return `AED ${(revenue / 1000000).toFixed(1)}M`;
+    } else if (revenue >= 1000) {
+      return `AED ${(revenue / 1000).toFixed(0)}K`;
+    } else {
+      return `AED ${revenue.toLocaleString()}`;
+    }
+  };
 
   return (
     <Card className="dashboard-card">
       <CardHeader>
-        <div className="flex items-center gap-3">
-          <div className="p-2 bg-orange-400/20 rounded-lg">
-            <div className="text-2xl">📊</div>
-          </div>
-          <div>
-            <CardTitle className="text-xl dashboard-text">Efficient Lead Handlers</CardTitle>
-            <p className="text-orange-400/70 text-sm">Best Lead Processing</p>
-          </div>
-        </div>
+        <CardTitle className="dashboard-text flex items-center gap-2">
+          <span className="text-2xl">⚡</span>
+          Overall Efficiency Analysis
+        </CardTitle>
+        <p className="dashboard-text-muted text-sm">
+          Composite score: 40% conversion + 30% engagement + 30% quality
+        </p>
       </CardHeader>
       <CardContent>
-        <div className="h-64">
-          <ResponsiveContainer width="100%" height="100%">
-            <AreaChart data={topEfficient}>
-              <XAxis 
-                dataKey="name" 
-                tick={{ fill: 'hsl(var(--dashboard-text))', fontSize: 12 }}
-                axisLine={false}
-                tickLine={false}
+        <div className="space-y-4">
+          {sortedAgents.map((agent, index) => (
+            <div
+              key={agent.name}
+              className="p-4 rounded-lg dashboard-card-secondary"
+            >
+              <div className="flex items-center justify-between mb-2">
+                <h3 className="dashboard-text font-semibold">{agent.name}</h3>
+                <div className="text-right">
+                  <span className="dashboard-text text-lg font-bold">
+                    {agent.efficiency.toFixed(1)}%
+                  </span>
+                  <p className="dashboard-accent text-xs">
+                    {formatRevenue(agent.revenue)}
+                  </p>
+                </div>
+              </div>
+              <Progress 
+                value={agent.efficiency} 
+                className="h-3 mb-2"
               />
-              <YAxis 
-                tick={{ fill: 'hsl(var(--dashboard-text))', fontSize: 12 }}
-                axisLine={false}
-                tickLine={false}
-              />
-              <Tooltip 
-                contentStyle={{
-                  backgroundColor: 'hsl(var(--dashboard-card))',
-                  border: '1px solid hsl(0 35% 25%)',
-                  borderRadius: '8px',
-                  color: 'hsl(var(--dashboard-text))'
-                }}
-                formatter={(value) => [`${Number(value).toFixed(1)}%`, 'Efficiency Score']}
-              />
-              <Area
-                type="monotone"
-                dataKey="efficiency"
-                stroke="#FB923C"
-                fill="rgba(251, 146, 60, 0.1)"
-                strokeWidth={3}
-                dot={{ fill: '#FB923C', strokeWidth: 2, r: 4 }}
-              />
-            </AreaChart>
-          </ResponsiveContainer>
+              <div className="flex justify-between items-center">
+                <span className="dashboard-accent text-sm">
+                  {getEfficiencyLabel(agent.efficiency)}
+                </span>
+                <div className="text-right">
+                  <span className="dashboard-text-muted text-xs">
+                    {agent.customers} deals • {agent.conversionRate}% rate
+                  </span>
+                </div>
+              </div>
+            </div>
+          ))}
         </div>
       </CardContent>
     </Card>

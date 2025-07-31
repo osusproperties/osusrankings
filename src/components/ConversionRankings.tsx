@@ -1,10 +1,13 @@
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Badge } from '@/components/ui/badge';
+import { Progress } from '@/components/ui/progress';
 
 interface Agent {
   name: string;
   conversionRate: number;
   totalLeads: number;
   customers: number;
+  revenue: number;
   engagementRate: number;
   quality: number;
   sourceCount: number;
@@ -15,50 +18,53 @@ interface ConversionRankingsProps {
 }
 
 export function ConversionRankings({ agents }: ConversionRankingsProps) {
-  const sorted = [...agents].sort((a, b) => b.conversionRate - a.conversionRate).slice(0, 5);
+  const sortedAgents = [...agents].sort((a, b) => b.conversionRate - a.conversionRate);
+
+  const getRankBadge = (index: number) => {
+    if (index === 0) return <Badge className="bg-yellow-500 text-black">🥇 #1</Badge>;
+    if (index === 1) return <Badge className="bg-gray-400 text-black">🥈 #2</Badge>;
+    if (index === 2) return <Badge className="bg-amber-600 text-white">🥉 #3</Badge>;
+    return <Badge variant="outline">#{index + 1}</Badge>;
+  };
 
   return (
     <Card className="dashboard-card">
       <CardHeader>
-        <div className="flex items-center gap-3">
-          <div className="p-2 bg-yellow-400/20 rounded-lg">
-            <div className="text-2xl">🎯</div>
-          </div>
-          <div>
-            <CardTitle className="text-xl dashboard-text">Exclusive Closers</CardTitle>
-            <p className="text-yellow-400/70 text-sm">Highest Conversion Rates</p>
-          </div>
-        </div>
+        <CardTitle className="dashboard-text flex items-center gap-2">
+          <span className="text-2xl">📈</span>
+          Conversion Rate Rankings
+        </CardTitle>
+        <p className="dashboard-text-muted text-sm">Ranked by lead-to-deal conversion rate</p>
       </CardHeader>
       <CardContent>
-        <div className="space-y-3">
-          {sorted.map((agent, index) => (
+        <div className="space-y-4">
+          {sortedAgents.map((agent, index) => (
             <div
               key={agent.name}
-              className="flex items-center gap-3 p-3 bg-red-700/30 rounded-lg hover:bg-red-700/50 transition-all"
+              className="flex items-center justify-between p-4 rounded-lg dashboard-card-secondary hover:scale-[1.02] transition-all duration-300"
             >
-              <div className={`ranking-badge ${
-                index === 0 ? 'ranking-1' : 
-                index === 1 ? 'ranking-2' : 
-                index === 2 ? 'ranking-3' : 
-                'ranking-other'
-              }`}>
-                {index + 1}
-              </div>
-              <div className="flex-1">
-                <p className="dashboard-text font-medium text-sm">{agent.name}</p>
-                <p className="dashboard-accent text-xs">
-                  {agent.customers}/{agent.totalLeads} converted
-                </p>
+              <div className="flex items-center gap-3">
+                {getRankBadge(index)}
+                <div className="flex-1">
+                  <h3 className="dashboard-text font-semibold">{agent.name}</h3>
+                  <div className="flex items-center gap-2 mt-1">
+                    <Progress 
+                      value={agent.conversionRate} 
+                      className="h-2 w-20"
+                    />
+                    <span className="dashboard-text-muted text-xs">
+                      {agent.customers}/{agent.totalLeads} converted
+                    </span>
+                  </div>
+                </div>
               </div>
               <div className="text-right">
-                <p className="dashboard-text font-bold">{agent.conversionRate.toFixed(1)}%</p>
-                <div className="w-16 bg-red-900 rounded-full h-2 mt-1">
-                  <div 
-                    className="progress-bar h-2 rounded-full" 
-                    style={{ width: `${Math.min(agent.conversionRate, 100)}%` }}
-                  ></div>
-                </div>
+                <p className="dashboard-text text-xl font-bold">
+                  {agent.conversionRate}%
+                </p>
+                <p className="dashboard-accent text-sm">
+                  conversion rate
+                </p>
               </div>
             </div>
           ))}

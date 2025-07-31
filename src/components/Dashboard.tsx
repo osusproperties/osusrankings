@@ -3,6 +3,12 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { OverallCloserRankings } from './OverallCloserRankings';
 import { RevenueGeneratorRankings } from './RevenueGeneratorRankings';
+import { VolumeRankings } from './VolumeRankings';
+import { QualityRankings } from './QualityRankings';
+import { ClosingRankings } from './ClosingRankings';
+import { ConversionRankings } from './ConversionRankings';
+import { EngagementChart } from './EngagementChart';
+import { EfficiencyChart } from './EfficiencyChart';
 import { QuarterSummary } from './QuarterSummary';
 import { LoadingScreen } from './LoadingScreen';
 import osusLogo from '@/assets/osus-logo.png';
@@ -210,17 +216,31 @@ export function Dashboard() {
         <div className="mb-8 animate-fade-in-delayed">
           <div className="text-center mb-6">
             <h2 className="text-3xl font-bold dashboard-text mb-2">
-              Performance Rankings
+              Performance Rankings & Analytics
             </h2>
             <p className="dashboard-accent text-lg">
-              Overall Closer Efficiency & Revenue Generation Leaders
+              Comprehensive Agent Performance Analysis
             </p>
           </div>
           
-          {/* Rankings Grid */}
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+          {/* Primary Rankings Grid */}
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
             <OverallCloserRankings agents={data.agents} />
             <RevenueGeneratorRankings agents={data.agents} />
+          </div>
+
+          {/* Secondary Rankings Grid */}
+          <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-6 mb-8">
+            <VolumeRankings agents={data.agents} />
+            <QualityRankings agents={data.agents} />
+            <ClosingRankings agents={data.agents} />
+          </div>
+
+          {/* Analysis Charts Grid */}
+          <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-6">
+            <ConversionRankings agents={data.agents} />
+            <EngagementChart agents={data.agents} />
+            <EfficiencyChart agents={data.agents} />
           </div>
         </div>
 
