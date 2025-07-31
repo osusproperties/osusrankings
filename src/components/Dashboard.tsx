@@ -35,12 +35,13 @@ const realData: Record<string, QuarterData> = {
     avgConversion: 6.5,
     agents: [
       { name: 'Faraaz Arif', conversionRate: 100.0, totalLeads: 1, customers: 1, engagementRate: 95.0, quality: 92.5, sourceCount: 2 },
-      { name: 'Claudio Panato', conversionRate: 75.0, totalLeads: 4, customers: 3, engagementRate: 88.0, quality: 85.0, sourceCount: 3 },
-      { name: 'Davide Bonaldo', conversionRate: 66.7, totalLeads: 3, customers: 2, engagementRate: 82.0, quality: 78.0, sourceCount: 4 },
       { name: 'Khaoula Boutouil', conversionRate: 100.0, totalLeads: 1, customers: 1, engagementRate: 90.0, quality: 88.0, sourceCount: 2 },
       { name: 'Maickel Faragalla', conversionRate: 100.0, totalLeads: 1, customers: 1, engagementRate: 85.0, quality: 80.0, sourceCount: 3 },
-      { name: 'Saad Khan', conversionRate: 75.0, totalLeads: 4, customers: 3, engagementRate: 78.0, quality: 75.0, sourceCount: 5 },
       { name: 'Alisar Al Najdi', conversionRate: 100.0, totalLeads: 1, customers: 1, engagementRate: 92.0, quality: 87.0, sourceCount: 2 },
+      { name: 'Claudio Panato', conversionRate: 75.0, totalLeads: 4, customers: 3, engagementRate: 88.0, quality: 85.0, sourceCount: 3 },
+      { name: 'Saad Khan', conversionRate: 75.0, totalLeads: 4, customers: 3, engagementRate: 78.0, quality: 75.0, sourceCount: 5 },
+      { name: 'Davide Bonaldo', conversionRate: 66.7, totalLeads: 3, customers: 2, engagementRate: 82.0, quality: 78.0, sourceCount: 4 },
+      { name: 'Hana Taghids', conversionRate: 100.0, totalLeads: 1, customers: 1, engagementRate: 85.0, quality: 82.0, sourceCount: 2 },
       { name: 'Radwa Ahmed', conversionRate: 0.0, totalLeads: 1, customers: 0, engagementRate: 45.0, quality: 35.0, sourceCount: 1 }
     ]
   },
@@ -49,16 +50,16 @@ const realData: Record<string, QuarterData> = {
     totalConversions: 15,
     avgConversion: 6.1,
     agents: [
-      { name: 'Wessam Simon', conversionRate: 60.0, totalLeads: 10, customers: 6, engagementRate: 85.0, quality: 82.0, sourceCount: 4 },
       { name: 'Ahmad Walid', conversionRate: 100.0, totalLeads: 1, customers: 1, engagementRate: 95.0, quality: 90.0, sourceCount: 2 },
-      { name: 'Faraaz Arif', conversionRate: 50.0, totalLeads: 2, customers: 1, engagementRate: 80.0, quality: 75.0, sourceCount: 3 },
       { name: 'Radwa Ahmed', conversionRate: 100.0, totalLeads: 1, customers: 1, engagementRate: 88.0, quality: 85.0, sourceCount: 2 },
       { name: 'Samia Khan', conversionRate: 100.0, totalLeads: 1, customers: 1, engagementRate: 92.0, quality: 88.0, sourceCount: 2 },
       { name: 'Asem Khurshid', conversionRate: 100.0, totalLeads: 1, customers: 1, engagementRate: 87.0, quality: 83.0, sourceCount: 3 },
       { name: 'Hana Taghids', conversionRate: 100.0, totalLeads: 1, customers: 1, engagementRate: 90.0, quality: 86.0, sourceCount: 2 },
       { name: 'Hicham El Assaad', conversionRate: 100.0, totalLeads: 1, customers: 1, engagementRate: 89.0, quality: 84.0, sourceCount: 2 },
       { name: 'Igor Khomenko', conversionRate: 75.0, totalLeads: 4, customers: 3, engagementRate: 82.0, quality: 78.0, sourceCount: 5 },
-      { name: 'Karim El Sabagh', conversionRate: 50.0, totalLeads: 4, customers: 2, engagementRate: 70.0, quality: 65.0, sourceCount: 6 }
+      { name: 'Wessam Simon', conversionRate: 60.0, totalLeads: 10, customers: 6, engagementRate: 85.0, quality: 82.0, sourceCount: 4 },
+      { name: 'Karim El Sabagh', conversionRate: 50.0, totalLeads: 4, customers: 2, engagementRate: 70.0, quality: 65.0, sourceCount: 6 },
+      { name: 'Faraaz Arif', conversionRate: 50.0, totalLeads: 2, customers: 1, engagementRate: 80.0, quality: 75.0, sourceCount: 3 }
     ]
   },
   Q3: {
@@ -66,14 +67,16 @@ const realData: Record<string, QuarterData> = {
     totalConversions: 18,
     avgConversion: 5.8,
     agents: [
+      { name: 'Sina Heghi', conversionRate: 100.0, totalLeads: 3, customers: 3, engagementRate: 95.0, quality: 92.0, sourceCount: 2 },
+      { name: 'Mehdi Mofidi', conversionRate: 100.0, totalLeads: 1, customers: 1, engagementRate: 90.0, quality: 85.0, sourceCount: 2 },
+      { name: 'Ahmad Walid', conversionRate: 100.0, totalLeads: 1, customers: 1, engagementRate: 92.0, quality: 88.0, sourceCount: 2 },
+      { name: 'Hicham El Assaad', conversionRate: 100.0, totalLeads: 1, customers: 1, engagementRate: 89.0, quality: 84.0, sourceCount: 2 },
       { name: 'Hajar Mohammad', conversionRate: 87.5, totalLeads: 8, customers: 7, engagementRate: 91.0, quality: 89.0, sourceCount: 3 },
       { name: 'Wessam Simon', conversionRate: 85.7, totalLeads: 7, customers: 6, engagementRate: 88.0, quality: 86.0, sourceCount: 4 },
-      { name: 'Sina Heghi', conversionRate: 100.0, totalLeads: 3, customers: 3, engagementRate: 95.0, quality: 92.0, sourceCount: 2 },
       { name: 'Sina Saeedi', conversionRate: 50.0, totalLeads: 2, customers: 1, engagementRate: 75.0, quality: 70.0, sourceCount: 3 },
-      { name: 'Mehdi Mofidi', conversionRate: 100.0, totalLeads: 1, customers: 1, engagementRate: 90.0, quality: 85.0, sourceCount: 2 },
       { name: 'Alisar Al Najdi', conversionRate: 20.0, totalLeads: 5, customers: 1, engagementRate: 65.0, quality: 58.0, sourceCount: 6 },
-      { name: 'Ahmad Walid', conversionRate: 100.0, totalLeads: 1, customers: 1, engagementRate: 92.0, quality: 88.0, sourceCount: 2 },
-      { name: 'Hicham El Assaad', conversionRate: 100.0, totalLeads: 1, customers: 1, engagementRate: 89.0, quality: 84.0, sourceCount: 2 }
+      { name: 'Adnan Arif', conversionRate: 0.0, totalLeads: 15, customers: 0, engagementRate: 40.0, quality: 25.0, sourceCount: 4 },
+      { name: 'Mohamed Nader', conversionRate: 0.0, totalLeads: 8, customers: 0, engagementRate: 35.0, quality: 20.0, sourceCount: 3 }
     ]
   }
 };
