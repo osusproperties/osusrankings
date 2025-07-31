@@ -5,6 +5,7 @@ import { OverallCloserRankings } from './OverallCloserRankings';
 import { RevenueGeneratorRankings } from './RevenueGeneratorRankings';
 import { QuarterSummary } from './QuarterSummary';
 import { LoadingScreen } from './LoadingScreen';
+import osusLogo from '@/assets/osus-logo.png';
 
 interface Agent {
   name: string;
@@ -99,17 +100,24 @@ export function Dashboard() {
       <div className="container mx-auto p-6 animate-slide-up">
         {/* Header Section */}
         <div className="mb-8">
-          <div className="flex items-center gap-4 mb-6">
-            <div className="relative">
-              <div className="text-5xl">🏆</div>
-              <div className="absolute -top-1 -right-1 w-4 h-4 bg-accent rounded-full animate-pulse"></div>
-            </div>
-            <div>
-              <h1 className="text-4xl md:text-5xl font-bold dashboard-text">
-                Real Estate Performance Analytics
-              </h1>
+          <div className="flex flex-col items-center gap-6 mb-6">
+            <img 
+              src={osusLogo} 
+              alt="OSUS Properties Logo" 
+              className="h-16 md:h-20 object-contain"
+            />
+            <div className="text-center">
+              <div className="flex items-center justify-center gap-4 mb-2">
+                <div className="relative">
+                  <div className="text-5xl">🏆</div>
+                  <div className="absolute -top-1 -right-1 w-4 h-4 bg-accent rounded-full animate-pulse"></div>
+                </div>
+                <h1 className="text-4xl md:text-5xl font-bold dashboard-text">
+                  Real Estate Performance Analytics
+                </h1>
+              </div>
               <p className="dashboard-accent text-lg md:text-xl">
-                Agent Rankings & Performance Dashboard - 2025
+                Quarterly Agent Rankings & Performance Dashboard - 2025
               </p>
             </div>
           </div>

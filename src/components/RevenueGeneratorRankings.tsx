@@ -20,11 +20,11 @@ export function RevenueGeneratorRankings({ agents }: RevenueGeneratorRankingsPro
 
   const formatRevenue = (revenue: number) => {
     if (revenue >= 1000000) {
-      return `$${(revenue / 1000000).toFixed(1)}M`;
+      return `AED ${(revenue / 1000000).toFixed(1)}M`;
     } else if (revenue >= 1000) {
-      return `$${(revenue / 1000).toFixed(0)}K`;
+      return `AED ${(revenue / 1000).toFixed(0)}K`;
     } else {
-      return `$${revenue.toLocaleString()}`;
+      return `AED ${revenue.toLocaleString()}`;
     }
   };
 
