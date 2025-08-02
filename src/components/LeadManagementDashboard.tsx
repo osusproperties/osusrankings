@@ -107,7 +107,7 @@ export function LeadManagementDashboard() {
                 </h1>
               </div>
               <p className="dashboard-accent text-lg md:text-xl">
-                Executive Summary Report - Analysis Date: 08/03/2025
+                Executive Summary Report - Analysis Date: 03/08/2025 (YTD 2025)
               </p>
             </div>
           </div>
