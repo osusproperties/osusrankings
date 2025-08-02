@@ -1,7 +1,8 @@
 import { Dashboard } from '@/components/Dashboard';
+import { LeadManagementDashboard } from '@/components/LeadManagementDashboard';
 
 const Index = () => {
-  return <Dashboard />;
+  return <LeadManagementDashboard />;
 };
 
 export default Index;
