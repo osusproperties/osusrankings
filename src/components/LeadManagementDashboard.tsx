@@ -17,11 +17,11 @@ const leadStageData = [
 ];
 
 const conversionRates = [
-  { from: 'NEW', to: 'ATTEMPT', rate: 1302.6, count: '2463/189' },
-  { from: 'ATTEMPT', to: 'CONTACTED', rate: 45.7, count: '1126/2463' },
-  { from: 'CONTACTED', to: 'OPTIONS SENT', rate: 56.3, count: '634/1126' },
-  { from: 'OPTIONS SENT', to: 'HOT', rate: 5.5, count: '35/634' },
-  { from: 'HOT', to: 'CUSTOMER', rate: 308.6, count: '108/35' }
+  { from: 'NEW', to: 'ATTEMPT', rate: ((2463/189) * 100).toFixed(1), count: '2463/189' },
+  { from: 'ATTEMPT', to: 'CONTACTED', rate: ((1126/2463) * 100).toFixed(1), count: '1126/2463' },
+  { from: 'CONTACTED', to: 'OPTIONS SENT', rate: ((634/1126) * 100).toFixed(1), count: '634/1126' },
+  { from: 'OPTIONS SENT', to: 'HOT', rate: ((35/634) * 100).toFixed(1), count: '35/634' },
+  { from: 'HOT', to: 'CUSTOMER', rate: ((108/35) * 100).toFixed(1), count: '108/35' }
 ];
 
 const channelPerformance = [
