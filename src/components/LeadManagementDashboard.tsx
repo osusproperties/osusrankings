@@ -37,11 +37,39 @@ const channelPerformance = [
 ];
 
 const topPerformers = [
-  { name: 'Sina Saeedi', cvr: 19.23, conversions: 5, total: 26, status: 'clone' },
-  { name: 'Wessam Simon', cvr: 11.24, conversions: 10, total: 89, status: 'excellent' },
-  { name: 'Safa El Amri', cvr: 9.3, conversions: 4, total: 43, status: 'excellent' },
-  { name: 'Maickel Faragalla', cvr: 7.14, conversions: 3, total: 42, status: 'good' },
-  { name: 'Igor Khomenko', cvr: 7.02, conversions: 4, total: 57, status: 'good' }
+  { name: 'Wessam Simon', cvr: 11.70, conversions: 11, total: 94, status: 'excellent', volume: 'high' },
+  { name: 'Igor Khomenko', cvr: 7.02, conversions: 4, total: 57, status: 'good', volume: 'medium' },
+  { name: 'Ahmad Walid', cvr: 6.17, conversions: 5, total: 81, status: 'good', volume: 'high' },
+  { name: 'Ali Asghar', cvr: 5.88, conversions: 3, total: 51, status: 'good', volume: 'medium' },
+  { name: 'Sina Saeedi', cvr: 5.23, conversions: 5, total: 26, status: 'good', volume: 'low' }
+];
+
+const attentionRequired = [
+  { name: 'CRM System', wasteRate: 99.89, leads: 16537, issue: 'system-failure', priority: 'critical' },
+  { name: 'Ahmad Hamdan', wasteRate: 16.75, leads: 245, issue: 'high-waste', priority: 'high' },
+  { name: 'Mariam Rahouli', wasteRate: 12.45, leads: 257, issue: 'process-issue', priority: 'medium' },
+  { name: 'Saad Khan', wasteRate: 11.20, leads: 130, issue: 'training-needed', priority: 'medium' }
+];
+
+const bestSources = [
+  { source: 'Referral', qualityScore: 95, cvr: 83.33, leads: 12, reliability: 'excellent' },
+  { source: 'Personal', qualityScore: 92, cvr: 65.00, leads: 20, reliability: 'excellent' },
+  { source: 'Call', qualityScore: 78, cvr: 34.52, leads: 84, reliability: 'good' },
+  { source: 'WhatsApp', qualityScore: 45, cvr: 1.67, leads: 120, reliability: 'poor' }
+];
+
+const languagePerformance = [
+  { language: 'Czech', cvr: 100.00, leads: 1, segment: 'premium' },
+  { language: 'Russian', cvr: 9.52, leads: 21, segment: 'high-potential' },
+  { language: 'English', cvr: 2.15, leads: 1250, segment: 'core' },
+  { language: 'Arabic', cvr: 1.64, leads: 426, segment: 'untapped' }
+];
+
+const demographicAnalysis = [
+  { category: 'Western Names', cvr: 1.04, leads: 385, potential: 'medium' },
+  { category: 'Arabic Names', cvr: 0.87, leads: 1720, potential: 'high' },
+  { category: 'Asian Names', cvr: 0.65, leads: 892, potential: 'medium' },
+  { category: 'Other', cvr: 0.60, leads: 1865, potential: 'low' }
 ];
 
 const coachingCandidates = [
@@ -165,13 +193,15 @@ export function LeadManagementDashboard() {
         </div>
 
         <Tabs defaultValue="overview" className="space-y-6">
-          <TabsList className="grid w-full grid-cols-6">
+          <TabsList className="grid w-full grid-cols-8">
             <TabsTrigger value="overview">Overview</TabsTrigger>
             <TabsTrigger value="conversion">Conversion</TabsTrigger>
             <TabsTrigger value="sources">Channels</TabsTrigger>
-            <TabsTrigger value="performance">Top Performers</TabsTrigger>
+            <TabsTrigger value="performance">Performance</TabsTrigger>
+            <TabsTrigger value="analytics">Analytics</TabsTrigger>
+            <TabsTrigger value="insights">Insights</TabsTrigger>
             <TabsTrigger value="coaching">Coaching</TabsTrigger>
-            <TabsTrigger value="actions">Action Plan</TabsTrigger>
+            <TabsTrigger value="actions">Actions</TabsTrigger>
           </TabsList>
 
           <TabsContent value="overview" className="space-y-6">
@@ -381,6 +411,251 @@ export function LeadManagementDashboard() {
             </Card>
           </TabsContent>
 
+          <TabsContent value="analytics" className="space-y-6">
+            {/* Performance Rankings Grid */}
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+              {/* Top Performers Card */}
+              <Card className="dashboard-card">
+                <CardHeader>
+                  <CardTitle className="dashboard-text text-xl flex items-center gap-2">
+                    🏆 Top Performers
+                    <Badge variant="default">Excellence</Badge>
+                  </CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <div className="space-y-3">
+                    {topPerformers.map((performer, index) => (
+                      <div key={index} className="flex items-center justify-between p-3 rounded-lg bg-gradient-to-r from-green-50 to-blue-50 dark:from-green-900/20 dark:to-blue-900/20">
+                        <div className="flex items-center gap-3">
+                          <div className="w-8 h-8 rounded-full bg-gradient-to-r from-green-500 to-blue-500 flex items-center justify-center text-white font-bold text-sm">
+                            {index + 1}
+                          </div>
+                          <div>
+                            <div className="font-medium dashboard-text">{performer.name}</div>
+                            <div className="text-xs dashboard-text-muted">{performer.total} leads • {performer.volume} volume</div>
+                          </div>
+                        </div>
+                        <div className="text-right">
+                          <div className="text-lg font-bold text-green-600 dark:text-green-400">{performer.cvr}%</div>
+                          <div className="text-xs dashboard-text-muted">{performer.conversions} conv</div>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </CardContent>
+              </Card>
+
+              {/* Attention Required Card */}
+              <Card className="dashboard-card">
+                <CardHeader>
+                  <CardTitle className="dashboard-text text-xl flex items-center gap-2">
+                    ⚠️ Attention Required
+                    <Badge variant="destructive">Critical</Badge>
+                  </CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <div className="space-y-3">
+                    {attentionRequired.map((item, index) => (
+                      <div key={index} className={`flex items-center justify-between p-3 rounded-lg ${
+                        item.priority === 'critical' ? 'bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800' :
+                        item.priority === 'high' ? 'bg-orange-50 dark:bg-orange-900/20 border border-orange-200 dark:border-orange-800' :
+                        'bg-yellow-50 dark:bg-yellow-900/20 border border-yellow-200 dark:border-yellow-800'
+                      }`}>
+                        <div className="flex items-center gap-3">
+                          <div className={`w-3 h-3 rounded-full ${
+                            item.priority === 'critical' ? 'bg-red-500' :
+                            item.priority === 'high' ? 'bg-orange-500' : 'bg-yellow-500'
+                          }`}></div>
+                          <div>
+                            <div className="font-medium dashboard-text">{item.name}</div>
+                            <div className="text-xs dashboard-text-muted">{item.leads.toLocaleString()} leads • {item.issue}</div>
+                          </div>
+                        </div>
+                        <div className="text-right">
+                          <div className="text-lg font-bold text-red-600 dark:text-red-400">{item.wasteRate}%</div>
+                          <div className="text-xs dashboard-text-muted">waste rate</div>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </CardContent>
+              </Card>
+
+              {/* Best Sources Card */}
+              <Card className="dashboard-card">
+                <CardHeader>
+                  <CardTitle className="dashboard-text text-xl flex items-center gap-2">
+                    🎯 Best Sources
+                    <Badge variant="default">Quality Leaders</Badge>
+                  </CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <div className="space-y-3">
+                    {bestSources.map((source, index) => (
+                      <div key={index} className="flex items-center justify-between p-3 rounded-lg bg-gradient-to-r from-purple-50 to-pink-50 dark:from-purple-900/20 dark:to-pink-900/20">
+                        <div className="flex items-center gap-3">
+                          <div className="w-8 h-8 rounded-full bg-gradient-to-r from-purple-500 to-pink-500 flex items-center justify-center text-white font-bold text-sm">
+                            {source.qualityScore}
+                          </div>
+                          <div>
+                            <div className="font-medium dashboard-text">{source.source}</div>
+                            <div className="text-xs dashboard-text-muted">{source.leads} leads • {source.reliability}</div>
+                          </div>
+                        </div>
+                        <div className="text-right">
+                          <div className="text-lg font-bold text-purple-600 dark:text-purple-400">{source.cvr}%</div>
+                          <div className="text-xs dashboard-text-muted">CVR</div>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </CardContent>
+              </Card>
+
+              {/* Language Performance Card */}
+              <Card className="dashboard-card">
+                <CardHeader>
+                  <CardTitle className="dashboard-text text-xl flex items-center gap-2">
+                    🗣️ Language Performance
+                    <Badge variant="secondary">Global Reach</Badge>
+                  </CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <div className="space-y-3">
+                    {languagePerformance.map((lang, index) => (
+                      <div key={index} className={`flex items-center justify-between p-3 rounded-lg ${
+                        lang.segment === 'premium' ? 'bg-gradient-to-r from-gold-50 to-yellow-50 dark:from-yellow-900/20 dark:to-orange-900/20' :
+                        lang.segment === 'high-potential' ? 'bg-gradient-to-r from-blue-50 to-indigo-50 dark:from-blue-900/20 dark:to-indigo-900/20' :
+                        lang.segment === 'core' ? 'bg-gradient-to-r from-gray-50 to-slate-50 dark:from-gray-900/20 dark:to-slate-900/20' :
+                        'bg-gradient-to-r from-emerald-50 to-teal-50 dark:from-emerald-900/20 dark:to-teal-900/20'
+                      }`}>
+                        <div className="flex items-center gap-3">
+                          <div className={`w-8 h-8 rounded-full flex items-center justify-center text-white font-bold text-sm ${
+                            lang.segment === 'premium' ? 'bg-gradient-to-r from-yellow-500 to-orange-500' :
+                            lang.segment === 'high-potential' ? 'bg-gradient-to-r from-blue-500 to-indigo-500' :
+                            lang.segment === 'core' ? 'bg-gradient-to-r from-gray-500 to-slate-500' :
+                            'bg-gradient-to-r from-emerald-500 to-teal-500'
+                          }`}>
+                            {lang.language.slice(0, 2).toUpperCase()}
+                          </div>
+                          <div>
+                            <div className="font-medium dashboard-text">{lang.language}</div>
+                            <div className="text-xs dashboard-text-muted">{lang.leads} leads • {lang.segment}</div>
+                          </div>
+                        </div>
+                        <div className="text-right">
+                          <div className="text-lg font-bold text-blue-600 dark:text-blue-400">{lang.cvr}%</div>
+                          <div className="text-xs dashboard-text-muted">CVR</div>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </CardContent>
+              </Card>
+            </div>
+          </TabsContent>
+
+          <TabsContent value="insights" className="space-y-6">
+            {/* Demographic Analysis */}
+            <Card className="dashboard-card">
+              <CardHeader>
+                <CardTitle className="dashboard-text text-2xl flex items-center gap-2">
+                  👥 Demographic Performance Analysis
+                  <Badge variant="outline">Market Intelligence</Badge>
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  <div className="space-y-4">
+                    {demographicAnalysis.map((demo, index) => (
+                      <div key={index} className="flex items-center justify-between p-4 rounded-lg dashboard-card border-l-4 border-accent">
+                        <div className="flex items-center gap-3">
+                          <div className={`w-10 h-10 rounded-full flex items-center justify-center text-white font-bold ${
+                            demo.potential === 'high' ? 'bg-green-500' :
+                            demo.potential === 'medium' ? 'bg-yellow-500' : 'bg-gray-500'
+                          }`}>
+                            {demo.category.split(' ')[0].slice(0, 2).toUpperCase()}
+                          </div>
+                          <div>
+                            <div className="font-medium dashboard-text">{demo.category}</div>
+                            <div className="text-sm dashboard-text-muted">{demo.leads.toLocaleString()} leads • {demo.potential} potential</div>
+                          </div>
+                        </div>
+                        <div className="text-right">
+                          <div className="text-2xl font-bold dashboard-text">{demo.cvr}%</div>
+                          <div className="text-sm dashboard-text-muted">CVR</div>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                  
+                  <div className="space-y-4">
+                    <h4 className="font-semibold dashboard-text text-lg">Key Market Opportunities</h4>
+                    <div className="space-y-3">
+                      <div className="p-4 bg-green-50 dark:bg-green-900/20 rounded-lg border border-green-200 dark:border-green-800">
+                        <div className="font-medium text-green-700 dark:text-green-300">Arabic Market Expansion</div>
+                        <div className="text-sm text-green-600 dark:text-green-400">1,720 leads with untapped potential</div>
+                      </div>
+                      <div className="p-4 bg-blue-50 dark:bg-blue-900/20 rounded-lg border border-blue-200 dark:border-blue-800">
+                        <div className="font-medium text-blue-700 dark:text-blue-300">Western Names Optimization</div>
+                        <div className="text-sm text-blue-600 dark:text-blue-400">385 leads with improvement opportunity</div>
+                      </div>
+                      <div className="p-4 bg-purple-50 dark:bg-purple-900/20 rounded-lg border border-purple-200 dark:border-purple-800">
+                        <div className="font-medium text-purple-700 dark:text-purple-300">Asian Market Development</div>
+                        <div className="text-sm text-purple-600 dark:text-purple-400">892 leads with growth potential</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+
+            {/* Executive Impact Projections */}
+            <Card className="dashboard-card">
+              <CardHeader>
+                <CardTitle className="dashboard-text text-2xl flex items-center gap-2">
+                  💰 Revenue Impact Projections
+                  <Badge variant="default">ROI Analysis</Badge>
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                  <div className="p-6 bg-gradient-to-br from-red-50 to-red-100 dark:from-red-900/20 dark:to-red-800/30 rounded-lg border border-red-200 dark:border-red-800">
+                    <div className="text-center">
+                      <div className="text-3xl font-bold text-red-600 dark:text-red-400">AED 12.8M</div>
+                      <div className="text-sm text-red-700 dark:text-red-300 mt-1">Revenue Recovery</div>
+                      <div className="text-xs text-red-600 dark:text-red-400 mt-2">From CRM System Fix</div>
+                    </div>
+                  </div>
+                  
+                  <div className="p-6 bg-gradient-to-br from-green-50 to-green-100 dark:from-green-900/20 dark:to-green-800/30 rounded-lg border border-green-200 dark:border-green-800">
+                    <div className="text-center">
+                      <div className="text-3xl font-bold text-green-600 dark:text-green-400">AED 8.5M</div>
+                      <div className="text-sm text-green-700 dark:text-green-300 mt-1">Growth Potential</div>
+                      <div className="text-xs text-green-600 dark:text-green-400 mt-2">From Optimization</div>
+                    </div>
+                  </div>
+                  
+                  <div className="p-6 bg-gradient-to-br from-blue-50 to-blue-100 dark:from-blue-900/20 dark:to-blue-800/30 rounded-lg border border-blue-200 dark:border-blue-800">
+                    <div className="text-center">
+                      <div className="text-3xl font-bold text-blue-600 dark:text-blue-400">300%</div>
+                      <div className="text-sm text-blue-700 dark:text-blue-300 mt-1">ROI Improvement</div>
+                      <div className="text-xs text-blue-600 dark:text-blue-400 mt-2">Strategic Reallocations</div>
+                    </div>
+                  </div>
+                </div>
+                
+                <div className="mt-6 p-4 bg-gradient-to-r from-gold-50 to-yellow-50 dark:from-yellow-900/20 dark:to-orange-900/20 rounded-lg border border-yellow-200 dark:border-yellow-800">
+                  <div className="text-center">
+                    <div className="text-lg font-semibold text-yellow-700 dark:text-yellow-300">Total Potential Impact</div>
+                    <div className="text-4xl font-bold text-yellow-600 dark:text-yellow-400 mt-2">AED 21.3M</div>
+                    <div className="text-sm text-yellow-600 dark:text-yellow-400 mt-1">Combined revenue opportunity from all initiatives</div>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+          </TabsContent>
+
           <TabsContent value="actions" className="space-y-6">
             <Card className="dashboard-card">
               <CardHeader>
@@ -388,30 +663,108 @@ export function LeadManagementDashboard() {
               </CardHeader>
               <CardContent>
                 <div className="space-y-6">
-                  {executiveActions.map((action, index) => (
-                    <div key={index} className="p-6 rounded-lg dashboard-card border-l-4 border-accent">
-                      <div className="flex items-start justify-between mb-4">
-                        <div>
-                          <h4 className="font-semibold dashboard-text text-lg">{action.title}</h4>
-                          <p className="dashboard-text-muted">{action.details}</p>
+                  {/* Immediate Actions */}
+                  <div>
+                    <h4 className="font-semibold dashboard-text text-lg mb-4 flex items-center gap-2">
+                      🚨 Immediate Actions (Next 7 Days)
+                      <Badge variant="destructive">Critical</Badge>
+                    </h4>
+                    <div className="space-y-4">
+                      <div className="p-6 rounded-lg dashboard-card border-l-4 border-red-500">
+                        <div className="flex items-start justify-between mb-4">
+                          <div>
+                            <h5 className="font-semibold dashboard-text">Fix CRM System</h5>
+                            <p className="dashboard-text-muted">Address 99.89% waste rate affecting 16,537 leads</p>
+                          </div>
+                          <Badge variant="destructive">Critical</Badge>
                         </div>
-                        <Badge variant={action.priority === 'immediate' ? 'destructive' : 'default'}>
-                          {action.priority}
-                        </Badge>
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                          <div>
+                            <div className="text-sm dashboard-text-muted">Owner</div>
+                            <div className="font-medium dashboard-text">IT Operations & Sales Tech</div>
+                          </div>
+                          <div>
+                            <div className="text-sm dashboard-text-muted">Expected Impact</div>
+                            <div className="font-medium text-green-600 dark:text-green-400">AED 12.8M Revenue Recovery</div>
+                          </div>
+                        </div>
                       </div>
                       
-                      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                        <div>
-                          <div className="text-sm dashboard-text-muted">Owner</div>
-                          <div className="font-medium dashboard-text">{action.owner}</div>
+                      <div className="p-6 rounded-lg dashboard-card border-l-4 border-orange-500">
+                        <div className="flex items-start justify-between mb-4">
+                          <div>
+                            <h5 className="font-semibold dashboard-text">Scale Referral Program</h5>
+                            <p className="dashboard-text-muted">Expand highest-performing channel (83% CVR)</p>
+                          </div>
+                          <Badge variant="destructive">Immediate</Badge>
                         </div>
-                        <div>
-                          <div className="text-sm dashboard-text-muted">Expected Impact</div>
-                          <div className="font-medium text-green-600 dark:text-green-400">{action.impact}</div>
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                          <div>
+                            <div className="text-sm dashboard-text-muted">Owner</div>
+                            <div className="font-medium dashboard-text">Marketing & Business Development</div>
+                          </div>
+                          <div>
+                            <div className="text-sm dashboard-text-muted">Expected Impact</div>
+                            <div className="font-medium text-green-600 dark:text-green-400">+200% Lead Quality</div>
+                          </div>
+                        </div>
+                      </div>
+                      
+                      <div className="p-6 rounded-lg dashboard-card border-l-4 border-blue-500">
+                        <div className="flex items-start justify-between mb-4">
+                          <div>
+                            <h5 className="font-semibold dashboard-text">Deploy Russian Language Specialists</h5>
+                            <p className="dashboard-text-muted">Capitalize on 9.52% CVR opportunity</p>
+                          </div>
+                          <Badge variant="destructive">Immediate</Badge>
+                        </div>
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                          <div>
+                            <div className="text-sm dashboard-text-muted">Owner</div>
+                            <div className="font-medium dashboard-text">HR & Sales Operations</div>
+                          </div>
+                          <div>
+                            <div className="text-sm dashboard-text-muted">Expected Impact</div>
+                            <div className="font-medium text-green-600 dark:text-green-400">+300% Russian Market</div>
+                          </div>
                         </div>
                       </div>
                     </div>
-                  ))}
+                  </div>
+
+                  {/* Strategic Actions */}
+                  <div>
+                    <h4 className="font-semibold dashboard-text text-lg mb-4 flex items-center gap-2">
+                      📈 Strategic Actions (Next 30 Days)
+                      <Badge variant="default">Growth</Badge>
+                    </h4>
+                    <div className="space-y-4">
+                      {executiveActions.map((action, index) => (
+                        <div key={index} className="p-6 rounded-lg dashboard-card border-l-4 border-accent">
+                          <div className="flex items-start justify-between mb-4">
+                            <div>
+                              <h5 className="font-semibold dashboard-text">{action.title}</h5>
+                              <p className="dashboard-text-muted">{action.details}</p>
+                            </div>
+                            <Badge variant={action.priority === 'immediate' ? 'destructive' : 'default'}>
+                              {action.priority}
+                            </Badge>
+                          </div>
+                          
+                          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div>
+                              <div className="text-sm dashboard-text-muted">Owner</div>
+                              <div className="font-medium dashboard-text">{action.owner}</div>
+                            </div>
+                            <div>
+                              <div className="text-sm dashboard-text-muted">Expected Impact</div>
+                              <div className="font-medium text-green-600 dark:text-green-400">{action.impact}</div>
+                            </div>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
                   
                   <div className="mt-8 p-6 bg-green-50 dark:bg-green-900/20 rounded-lg border border-green-200 dark:border-green-800">
                     <h4 className="font-semibold text-green-700 dark:text-green-300 mb-2">Next Steps</h4>
