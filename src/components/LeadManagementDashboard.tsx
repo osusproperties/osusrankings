@@ -18,7 +18,7 @@ const leadStageData = [
 
 const conversionRates = [
   { from: 'NEW', to: 'ATTEMPT', rate: ((2463/189) * 100).toFixed(1), count: '2463/189' },
-  { from: 'ATTEMPT', to: 'CONTACTED', rate: ((1126/2463) * 100).toFixed(1), count: '1126/2463' },
+  { from: 'ATTEMPT', to: 'CONTACTED', rate: ((189/2436) * 100).toFixed(1), count: '189/2436' },
   { from: 'CONTACTED', to: 'OPTIONS SENT', rate: ((634/1126) * 100).toFixed(1), count: '634/1126' },
   { from: 'OPTIONS SENT', to: 'HOT', rate: ((35/634) * 100).toFixed(1), count: '35/634' },
   { from: 'HOT', to: 'CUSTOMER', rate: ((108/35) * 100).toFixed(1), count: '108/35' }
@@ -156,7 +156,7 @@ export function LeadManagementDashboard() {
                   <Clock className="h-8 w-8 text-red-500" />
                   <div>
                     <p className="dashboard-text-muted text-sm">Contact Rate</p>
-                    <p className="dashboard-text text-2xl font-bold">45.7%</p>
+                    <p className="dashboard-text text-2xl font-bold">7.8%</p>
                   </div>
                 </div>
               </CardContent>
@@ -207,7 +207,7 @@ export function LeadManagementDashboard() {
                     <span className="font-semibold text-red-700 dark:text-red-300">Critical Bottleneck</span>
                   </div>
                   <p className="text-red-600 dark:text-red-400">
-                    <strong>2,463 leads (50.7%)</strong> are stuck in ATTEMPT stage. Contact rate only 45.7% - needs immediate action.
+                    <strong>2,463 leads (50.7%)</strong> are stuck in ATTEMPT stage. Contact rate only 7.8% - needs immediate action.
                   </p>
                 </div>
               </CardContent>
@@ -234,7 +234,7 @@ export function LeadManagementDashboard() {
                   <div>
                     <h4 className="font-semibold dashboard-text mb-3">Immediate Actions Required</h4>
                     <ul className="space-y-2 dashboard-text-muted">
-                      <li>• Implement 2-hour response SLA (contact rate 45.7%)</li>
+                      <li>• Implement 2-hour response SLA (contact rate 7.8%)</li>
                       <li>• Agent mentorship program: Top → Bottom performers</li>
                       <li>• Reactivate 255 dormant leads (15% recovery target)</li>
                       <li>• Focus on high-performing channels (Referral: 85.7% CVR)</li>
